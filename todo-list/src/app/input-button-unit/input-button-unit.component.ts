@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   <p>input-button-unit works!
       the title is: {{ title }}
   </p>
-  <input [value]="generateTitle()">
-  <button>Save</button>
+  <input [value]="title" 
+         (keyup.enter)="changeTitle($event.target.value)" >
+  <button (click)="changeTitle('Button Clicked!')">Save</button>
   `,
   styleUrls: ['./input-button-unit.component.css']
 })
@@ -15,13 +16,9 @@ export class InputButtonUnitComponent implements OnInit {
   title = 'New Button';
   constructor() {  }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.title = 'Some new cool title';
-    }, 3000);
-   }
+  ngOnInit(): void { }
 
-  generateTitle(): string {
-    return 'A generated Title';
+  changeTitle(newTitle: string) {
+    this.title = newTitle;
   }
 }
