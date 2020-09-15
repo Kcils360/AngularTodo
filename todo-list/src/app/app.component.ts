@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TodoItem } from '../app/interfaces/todo-item';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { Component } from '@angular/core';
 
 <ul>
   <li *ngFor="let todoItem of todoList">
-    {{todoItem.title}}
+    <app-todo-item [item]="todoItem"></app-todo-item>
   </li>
 </ul>
 `,
@@ -17,12 +18,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Over-Engineered eXtraBaller ToDo Application Software Website';
-  todoList = [
+  todoList: TodoItem[] = [
     {title: 'install NodeJS'},
     {title: 'install Angular CLI'},
     {title: 'create new app'},
     {title: 'serve app'},
     {title: 'develop app'},
-    {title: 'deploy app'},
+    
   ];
 }
