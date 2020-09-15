@@ -5,14 +5,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   template: `
   <input class="todo-input"
          #inputElementRef
-         [value]="title" 
+         placeholder="New Todo"
          (keyup.enter)="submitValue($event.target.value)" >
   <button class="btn" (click)="submitValue(inputElementRef.value)">Save</button>
   `,
   styleUrls: ['./input-button-unit.component.css']
 })
 export class InputButtonUnitComponent implements OnInit {
-  title = 'New Task';
+  title;
   constructor() {  }
 
   ngOnInit(): void { }
