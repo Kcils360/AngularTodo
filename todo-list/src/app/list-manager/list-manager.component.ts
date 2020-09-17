@@ -24,9 +24,10 @@ export class ListManagerComponent implements OnInit {
   todoList: TodoItem[];
 
   constructor(private todoListService:TodoListService) { }
-
+  //ADD TYPES TO ALL OF THESE
   ngOnInit(): void {
-    this.todoList = this.todoListService.getTodoList();
+    // this.todoList = this.todoListService.getTodoList(); //this is the old way
+    this.getTodos(); 
   }
 
   addItem(title: string) {
@@ -39,6 +40,10 @@ export class ListManagerComponent implements OnInit {
 
   updateItem(item, changes) {
     this.todoListService.updateItem(item, changes);
+  }
+
+  getTodos(): void {
+    this.todoListService.getTodos().subscribe(todos => this.todoList = todos)
   }
 
 }
