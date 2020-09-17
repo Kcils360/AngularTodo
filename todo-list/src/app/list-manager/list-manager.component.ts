@@ -24,26 +24,28 @@ export class ListManagerComponent implements OnInit {
   todoList: TodoItem[];
 
   constructor(private todoListService:TodoListService) { }
-  //ADD TYPES TO ALL OF THESE
+  //DONE: ADD TYPES TO ALL OF THESE
   ngOnInit(): void {
-    // this.todoList = this.todoListService.getTodoList(); //this is the old way
-    this.getTodos(); 
+    this.getTodoList(); 
   }
 
   addItem(title: string) {
-    this.todoListService.addItem({ title });
+    const newTodo: TodoItem = {title} as TodoItem;
+    this.todoListService
+      .addItem(newTodo)
+      .subscribe(todo => this.todoList.push());
   }
 
-  removeItem(item) {
+  removeItem(item: TodoItem) {
     this.todoListService.deleteItem(item);
   }
 
-  updateItem(item, changes) {
+  updateItem(item: TodoItem, changes: any) {
     this.todoListService.updateItem(item, changes);
   }
 
-  getTodos(): void {
-    this.todoListService.getTodos().subscribe(todos => this.todoList = todos)
+  getTodoList() {
+    this.todoListService.getTodoList().subscribe(todos => this.todoList = todos)
   }
 
 }

@@ -27,28 +27,29 @@ const httpOptions = {
   })
 
 export class TodoListService {
-   todosUrl = 'https://localhost:44387/todo'  //run the durn api server and make sure URLs match
+   todosUrl = 'https://localhost:44387/api/todo'  //run the durn api server and make sure URLs match
   todoList: TodoItem[];
    constructor(private storageService: StorageService, private http: HttpClient) { 
-    this.todoList = storageService.getData(todoListStorageKey) || defaultTodoList;
+    // this.todoList = storageService.getData(todoListStorageKey) || defaultTodoList;
   }
 
-  getTodoList() {
-    return this.todoList;
-  }
 
    //get todos from C# server
-   getTodos(): Observable<TodoItem[]> {
+   getTodoList(): Observable<TodoItem[]> {
      return this.http.get<TodoItem[]>(this.todosUrl)
        .pipe(
          share() //Always add a share operator to a network call. This way if two subscribers subscribe to this observable, the call will only be made once.
        );
    }
 
-  addItem(item: TodoItem) {
-    this.todoList.push(item);
-    //Methods should only do one thing. Adding and Saving are two seperate actions
-    // this.saveList();
+  addItem(item: TodoItem): Observable<TodoItem> {
+    return this.http.post<TodoItem>(this.todosUrl, item)
+    .pipe(
+      share()
+      );
+      //Methods should only do one thing. Adding and Saving are two seperate actions
+      // this.todoList.push(item);
+      // this.saveList();
   }
 
   //Avoid using any. In this case refactor the calling code so it applies the changes to the item and sends it to the list
