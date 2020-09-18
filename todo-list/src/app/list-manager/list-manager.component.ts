@@ -13,7 +13,7 @@ import { TodoListService } from '../services/todo-list.service';
       <li *ngFor="let todoItem of todoList">
       <app-todo-item [item]="todoItem"
       (remove)="removeItem($event)"
-      (update)="updateItem($event.item, $event.changes)"></app-todo-item>
+      (update)="updateItem($event)"></app-todo-item>
       </li>
     </ul>
   </div>
@@ -26,26 +26,31 @@ export class ListManagerComponent implements OnInit {
   constructor(private todoListService:TodoListService) { }
   //DONE: ADD TYPES TO ALL OF THESE
   ngOnInit(): void {
-    this.getTodoList(); 
+    this.getTodoList();
   }
 
-  addItem(title: string) {
+  addItem(title: string): void {
     const newTodo: TodoItem = {title} as TodoItem;
     this.todoListService
       .addItem(newTodo)
-      .subscribe(todo => this.todoList.push());
+      .subscribe(_todo => this.todoList.push(newTodo));
   }
 
-  removeItem(item: TodoItem) {
-    this.todoListService.deleteItem(item);
+  removeItem(item: TodoItem): void {
+    this.todoListService
+      .deleteItem(item);
   }
 
-  updateItem(item: TodoItem, changes: any) {
-    this.todoListService.updateItem(item, changes);
+  updateItem(item: TodoItem): void {
+    this.todoListService
+      //TODO: apply the changes to the item, then send it to the ListService
+      .updateItem(item);
   }
 
-  getTodoList() {
-    this.todoListService.getTodoList().subscribe(todos => this.todoList = todos)
+  getTodoList(): void {
+    this.todoListService
+      .getTodoList()
+      .subscribe(todos => this.todoList = todos)
   }
 
 }

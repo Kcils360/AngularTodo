@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { checkServerIdentity } from 'tls';
 import { TodoItem } from '../interfaces/todo-item';
 
 @Component({
   selector: 'app-todo-item',
   template: `
   <div class="todo-item">
-    <input type="checkbox" 
+    <input type="checkbox"
+            {*ngIf="item.completed"}=checked
             class="todo-checkbox"
             (click)="completeItem()" />
         <span class="todo-title" [ngClass]="{'todo-complete': item.completed}">
@@ -20,7 +22,7 @@ export class TodoItemComponent implements OnInit {
 
   @Input() item: TodoItem;
   @Output() remove: EventEmitter<TodoItem> = new EventEmitter();
-  @Output() update: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<TodoItem> = new EventEmitter();
 
   constructor() { }
 
@@ -32,10 +34,8 @@ export class TodoItemComponent implements OnInit {
   }
 
   completeItem() {
-    this.update.emit({
-      item: this.item,
-      changes: {completed: !this.item.completed}
-    });
+    this.item = {...this.item, "completed": true}
+    this.update.emit(this.item);
   }
 
 }
