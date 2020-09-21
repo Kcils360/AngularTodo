@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { checkServerIdentity } from 'tls';
 import { TodoItem } from '../interfaces/todo-item';
 
 @Component({
@@ -7,7 +6,6 @@ import { TodoItem } from '../interfaces/todo-item';
   template: `
   <div class="todo-item">
     <input type="checkbox"
-            {*ngIf="item.completed"}=checked
             class="todo-checkbox"
             (click)="completeItem()" />
         <span class="todo-title" [ngClass]="{'todo-complete': item.completed}">
