@@ -37,7 +37,8 @@ export class TodoListService {
   //Avoid using any. In this case refactor the calling code so it applies the changes to the item and sends it to the list
   updateItem(item: TodoItem): void {
     // const index = this.todoList.indexOf(item);
-    this.todoList.next( [...this.todoList.getValue().filter(t => t.title !== item.title), item]);
+    this.todoList.next( [...this.todoList.getValue().filter(t => t.title !== item.title), item])
+    this.apiService.updateItem(item);
   }
 
   deleteItem(item: TodoItem): void {

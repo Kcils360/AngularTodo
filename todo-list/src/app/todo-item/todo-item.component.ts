@@ -28,7 +28,8 @@ export class TodoItemComponent implements OnInit {
   }
 
   removeItem() {
-    this.remove.emit(this.item);
+    // this.remove.emit(this.item);
+    console.log('remove item click event');
   }
 
   completeItem() {

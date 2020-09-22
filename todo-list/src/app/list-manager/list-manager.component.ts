@@ -45,6 +45,7 @@ export class ListManagerComponent implements OnInit {
     this.todoListService
       //TODO: apply the changes to the item, then send it to the ListService
       .updateItem(item);
+      console.log('list-manager hit');
   }
 
   getTodoList(): void {

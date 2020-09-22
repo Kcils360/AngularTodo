@@ -24,4 +24,8 @@ export class ApiService {
     return this.http.post<TodoItem>(this.todosUrl, item);
   }
 
+  updateItem(item: TodoItem): Observable<TodoItem> {
+    return this.http.put<TodoItem>(this.todosUrl, item);
+  }
+
 }
