@@ -37,15 +37,17 @@ export class ListManagerComponent implements OnInit {
   }
 
   removeItem(item: TodoItem): void {
+    // console.log('list-manager hit', item);
     this.todoListService
-      .deleteItem(item);
+      .deleteItem(item)
+      .subscribe(_todoList => this.todoList = _todoList);
   }
 
   updateItem(item: TodoItem): void {
     this.todoListService
       //TODO: apply the changes to the item, then send it to the ListService
-      .updateItem(item);
-      console.log('list-manager hit');
+      .updateItem(item)
+      .subscribe();
   }
 
   getTodoList(): void {

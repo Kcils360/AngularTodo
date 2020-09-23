@@ -28,4 +28,9 @@ export class ApiService {
     return this.http.put<TodoItem>(this.todosUrl, item);
   }
 
+  deleteItem(item: TodoItem): Observable<TodoItem[]> {
+    console.log('api service hit', item)
+    return this.http.delete<TodoItem[]>(`${this.todosUrl}/${item.title}`);
+  }
+
 }

@@ -35,17 +35,19 @@ export class TodoListService {
   }
 
   //Avoid using any. In this case refactor the calling code so it applies the changes to the item and sends it to the list
-  updateItem(item: TodoItem): void {
+  updateItem(item: TodoItem): Observable<TodoItem> {
     // const index = this.todoList.indexOf(item);
     this.todoList.next( [...this.todoList.getValue().filter(t => t.title !== item.title), item])
-    this.apiService.updateItem(item);
+    return this.apiService.updateItem(item);
   }
 
-  deleteItem(item: TodoItem): void {
-    //THIS IS DESTRUCTIVE NEVER DO THIS
-    // this.todoList.splice(index, 1);
-    //CREATE A NEW LIST INSTEAD
-    this.todoList.next( this.todoList.getValue().filter(t => t.title !== item.title));
+  deleteItem(item: TodoItem): Observable<TodoItem[]> {
+    // console.log('list service hit', item)
+    return this.apiService.deleteItem(item)
+      .pipe(
+        share()
+    );
+    // this.todoList.next( this.todoList.getValue().filter(t => t.title !== item.title));
     // this.saveList(this.todoList);// make this use the apiService
   }
 
