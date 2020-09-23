@@ -12,9 +12,7 @@ export class TodoListService {
    todosUrl = 'https://localhost:44387/api/todo'  //run the api server and make sure URLs match
    todoList: BehaviorSubject<TodoItem[]> = new BehaviorSubject([]);
    public ToDoList: Observable<TodoItem[]>;
-      // todoList: TodoItem[];
    constructor(private apiService: ApiService) {
-    // this.todoList = this.getTodoList();
     this.getTodoList().subscribe(todo => this.todoList.next(todo));
     this.ToDoList = this.todoList.asObservable();
   }
@@ -34,21 +32,16 @@ export class TodoListService {
       );
   }
 
-  //Avoid using any. In this case refactor the calling code so it applies the changes to the item and sends it to the list
   updateItem(item: TodoItem): Observable<TodoItem> {
-    // const index = this.todoList.indexOf(item);
     this.todoList.next( [...this.todoList.getValue().filter(t => t.title !== item.title), item])
     return this.apiService.updateItem(item);
   }
 
   deleteItem(item: TodoItem): Observable<TodoItem[]> {
-    // console.log('list service hit', item)
     return this.apiService.deleteItem(item)
       .pipe(
         share()
     );
-    // this.todoList.next( this.todoList.getValue().filter(t => t.title !== item.title));
-    // this.saveList(this.todoList);// make this use the apiService
   }
 
 }
