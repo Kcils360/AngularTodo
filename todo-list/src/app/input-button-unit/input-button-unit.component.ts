@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from "rxjs/Observable";
+import { fromEvent } from "rxjs/observable/fromEvent";
 
 @Component({
   selector: 'app-input-button-unit',
@@ -22,4 +24,6 @@ export class InputButtonUnitComponent implements OnInit {
   submitValue(newTitle: string) {
     this.submit.emit(newTitle);
   }
+
+  var observable = fromEvent()
 }

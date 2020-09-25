@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TodoItem } from '../interfaces/todo-item';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -26,9 +27,11 @@ export class ApiService {
     return this.http.put<TodoItem>(this.todosUrl, item);
   }
 
-  deleteItem(item: TodoItem): Observable<TodoItem[]> {
+  deleteItem(item: TodoItem): Observable<TodoItem> {
     console.log('api service hit', item)
-    return this.http.delete<TodoItem[]>(`${this.todosUrl}/${item.title}`);
+    return this.http.delete<TodoItem[]>(`${this.todosUrl}/${item.title}`).pipe(
+      map(_ => item)
+    );
   }
 
 }
